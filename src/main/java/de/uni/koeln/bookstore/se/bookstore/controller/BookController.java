@@ -39,13 +39,20 @@ public class BookController {
 		return new ResponseEntity<>(bookSer.fetchBook(id).get(), HttpStatus.OK);
 	}
 
-	@GetMapping("/Test")
-	public ResponseEntity<List<Book>> getNewestOldestBook() {
+	@GetMapping("/Oldest")
+	public ResponseEntity<Book> getOldestBook() {
 
-		List<Book> books = new ArrayList<Book>();
-		books = bookSer.getOldestNewestBook();
+		Book book = bookSer.getOldestBook();
 
-		return new ResponseEntity<>(books, HttpStatus.OK);
+		return new ResponseEntity<>(book, HttpStatus.OK);
+	}
+	
+	@GetMapping("/Newest")
+	public ResponseEntity<Book> getNewestBook() {
+
+		Book book = bookSer.getNewestBook();
+
+		return new ResponseEntity<>(book, HttpStatus.OK);
 	}
 
 	@PostMapping

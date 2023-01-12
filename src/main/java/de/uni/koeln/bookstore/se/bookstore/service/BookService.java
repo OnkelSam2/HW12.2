@@ -21,31 +21,38 @@ public class BookService {
 		return bookRepo.findAll();
 	}
 
-	public List<Book> getOldestNewestBook() {
+	public Book getOldestBook() {
 
-		List<Book> books = new ArrayList<Book>();
-		books = bookRepo.findAll();
+		List<Book> books = bookRepo.findAll();
 
-		if (books.size() == 0) {
-			return books;
+		Book book = new Book();
+
+		if (books.isEmpty()) {
+			return book;
 		} else {
 
 			int runner = books.size() - 1;
-			Book OldestBook = books.get(runner);
+			book = books.get(runner);
 
 			for (int i = 0; i < books.size(); i++) {
-				if (OldestBook.getPublishYear() > books.get(i).getPublishYear()) {
-					OldestBook = books.get(i);
+				if (book.getPublishYear() > books.get(i).getPublishYear()) {
+					book = books.get(i);
 				}
 			}
-
-			List<Book> bookss = new ArrayList<>();
-			bookss.add(OldestBook);
-			bookss.add(books.get(runner));
-
-			return bookss;
+			return book;
 		}
-
+	}
+	
+	public Book getNewestBook() {
+		
+		List<Book> books = bookRepo.findAll();
+		
+		if(books.isEmpty()) {
+			return null;
+		}else {
+			return books.get(books.size() -1 );
+		}
+	
 	}
 
 	public Optional<Book> fetchBook(int id) {
